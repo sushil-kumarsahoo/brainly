@@ -1,8 +1,10 @@
 import { Router } from "express";
 import { z } from 'zod';
 import jwt from 'jsonwebtoken';
-import { UserModel } from "../models/UserModel.js";
+import { UserModel } from "../models/user.model.js";
 import bcrypt from 'bcrypt';
+import { authUser } from "../middlewares/auth.middleware.js";
+import { ContentModel } from "../models/content.model.js";
 const v1Router = Router();
 
 const SignupSchema = z.object({
@@ -67,8 +69,32 @@ v1Router.post("/signin", async (req, res) => {
 });
 
 // Content Routes
-v1Router.post("/content", (req, res) => {
-    res.json({ message: "Create content" });
+v1Router.post("/content", authUser, async (req, res) => {
+    try {
+        const { link, title, type } = req.body;
+        const userId = req.userId;
+        if (!userId) {
+            return res.status(401).json({ message: "Unauthorized" })
+        };
+        const content = await ContentModel.create({
+            type,
+            link,
+            title,
+            userId,
+            tags: [],
+        })
+
+        return res.status(201).json({ message: "Content added successfully", content })
+    } catch (error) {
+        if (error instanceof z.ZodError) {
+            return res.status(400).json({
+                message: "Validation failed",
+                errors: error.issues.map((issue) => issue.message),
+            });
+        }
+        console.error(error);   // see the real error in your terminal
+        return res.status(500).json({ message: "Internal server error" });
+    }
 });
 
 v1Router.get("/content", (req, res) => {
