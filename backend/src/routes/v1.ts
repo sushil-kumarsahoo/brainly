@@ -97,12 +97,42 @@ v1Router.post("/content", authUser, async (req, res) => {
     }
 });
 
-v1Router.get("/content", (req, res) => {
-    res.json({ message: "Get content" });
+v1Router.get("/content", authUser, async (req, res) => {
+    try {
+        const userId = req.userId;
+        if (!userId) {
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+        const content = await ContentModel.find({ userId: userId }).populate("userId", "username");
+        return res.status(200).json({ content });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Internal server error" });
+    }
 });
 
-v1Router.delete("/content", (req, res) => {
-    res.json({ message: "Delete content" });
+v1Router.delete("/content/:id", authUser, async (req, res) => {
+    try {
+        const contentId = req.params.id;
+        if (!contentId) {
+            return res.status(400).json({ message: "Invalid content id" });
+        }
+        const userId = req.userId;
+        if (!userId) {
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+        const result = await ContentModel.deleteOne({ _id: contentId, userId });
+        if (result.deletedCount === 0) {
+            return res.status(404).json({
+                message: "Content not found"
+            });
+        }
+        return res.status(200).json({ message: "Content deleted successfully" });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Internal server error" });
+    }
+
 });
 
 // Share Links Routes
