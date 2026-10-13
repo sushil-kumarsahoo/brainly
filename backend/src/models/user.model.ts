@@ -10,7 +10,8 @@ const UserSchema = new Schema({
         type: String,
         required: true,
         select: false
-    }
+    },
+     status:{type:Boolean,required:true}
 });
 
 export const UserModel = model("User", UserSchema);
