@@ -157,7 +157,7 @@ v1Router.get("/getUser", authUser, async (req, res) => {
 });
 
 // Share Links Routes
-v1Router.get("/brain/gethash", authUser, async (req, res) => {
+v1Router.get("/brain/getShareLink", authUser, async (req, res) => {
     try {
         const userId = req.userId;
         if (!userId) {
@@ -174,7 +174,7 @@ v1Router.get("/brain/gethash", authUser, async (req, res) => {
 });
 
 // Turn sharing on/off. Body: { share: true | false } 
-v1Router.post("/brain/changeStatus", authUser, async (req, res) => {
+v1Router.put("/brain/share", authUser, async (req, res) => {
     const { share } = req.body;
     if (typeof share !== "boolean") {
         return res.status(400).json({ message: "share must be true or false" });
@@ -199,9 +199,9 @@ v1Router.post("/brain/changeStatus", authUser, async (req, res) => {
 });
 
 // Public route: no Auth, anyone with the hash can view
-v1Router.get("/brain/:share", async (req, res) => {
+v1Router.get("/brain/:shareLInk", async (req, res) => {
     try {
-        const link = await LinkModel.findOne({ hash: req.params.share });
+        const link = await LinkModel.findOne({ hash: req.params.shareLInk });
         if (!link) {
             return res.status(404).json({ message: "Link not found" });
         }
