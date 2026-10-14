@@ -202,7 +202,7 @@ v1Router.put("/brain/share", authUser, async (req, res) => {
 // Public route: no Auth, anyone with the hash can view
 v1Router.get("/brain/:shareLink", async (req, res) => {
     try {
-        const link = await LinkModel.findOne({ hash: req.params.shareLInk });
+        const link = await LinkModel.findOne({ hash: req.params.shareLink });
         if (!link) {
             return res.status(404).json({ message: "Link not found" });
         }
