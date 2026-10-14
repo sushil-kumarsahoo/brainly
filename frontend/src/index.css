@@ -3,4 +3,17 @@
 @theme{
   --color-purple-600:#5046e4;
   --color-purple-200:#e0e7fe;
+  --color-gray-200:#e6e9ed;
+  --color-gray-100:#eeeeef;
+  --color-gray-200:#e6e9ed;
+  --color-gray-300:#95989c;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, and Opera */
 }

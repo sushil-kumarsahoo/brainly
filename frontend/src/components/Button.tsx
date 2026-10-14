@@ -6,7 +6,7 @@ interface ButtonProps {
   text: string;
   startIcon?: ReactElement;
   endIcon?: ReactElement;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const variantStyles = {
@@ -15,12 +15,12 @@ const variantStyles = {
 };
 
 const sizeStyles = {
-  sm: "py-1 px-2 text-sm gap-1",
-  md: "py-2 px-4 text-md gap-2",
+  sm: "py-2 px-2 text-sm gap-1",
+  md: "py-3 px-4 text-md gap-2",
   lg: "py-4 px-6 text-lg gap-2",
 };
 
-const defaultStyles = "rounded-md flex items-center justify-center font-medium";
+const defaultStyles = "rounded-md flex items-center justify-center font-normal cursor-pointer";
 
 export const Button = ({
   variant,
@@ -37,8 +37,8 @@ export const Button = ({
       className={`${variantStyles[variant]} ${sizeStyles[size]} ${defaultStyles}`}
     >
       <div className="flex">
-        {startIcon }
-        <span className="leading-none pl-1">{text}</span>
+        {startIcon}
+        <span className="leading-none pl-1.5">{text}</span>
         {endIcon }
       </div>
     </button>
