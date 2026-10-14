@@ -11,7 +11,7 @@ const UserSchema = new Schema({
         required: true,
         select: false
     },
-     status:{type:Boolean,required:true}
+     status:{type:Boolean,required:true, default: false}
 });
 
 export const UserModel = model("User", UserSchema);

@@ -137,7 +137,7 @@ v1Router.delete("/content/:id", authUser, async (req, res) => {
 
 });
 
-v1Router.get("/getUser", authUser, async (req, res) => {
+v1Router.get("/brain/share-status", authUser, async (req, res) => {
     const userId = req.userId;
     if (!userId) {
         return res.status(401).json({ message: "Unauthorized" });
@@ -157,7 +157,7 @@ v1Router.get("/getUser", authUser, async (req, res) => {
 });
 
 // Share Links Routes
-v1Router.get("/brain/getShareLink", authUser, async (req, res) => {
+v1Router.get("/brain/share", authUser, async (req, res) => {
     try {
         const userId = req.userId;
         if (!userId) {
@@ -169,6 +169,7 @@ v1Router.get("/brain/getShareLink", authUser, async (req, res) => {
         }
         return res.status(200).json({ hash: link.hash });
     } catch (error) {
+         console.error(error);
         return res.status(500).json({ message: "Server error" });
     }
 });
@@ -199,7 +200,7 @@ v1Router.put("/brain/share", authUser, async (req, res) => {
 });
 
 // Public route: no Auth, anyone with the hash can view
-v1Router.get("/brain/:shareLInk", async (req, res) => {
+v1Router.get("/brain/:shareLink", async (req, res) => {
     try {
         const link = await LinkModel.findOne({ hash: req.params.shareLInk });
         if (!link) {
