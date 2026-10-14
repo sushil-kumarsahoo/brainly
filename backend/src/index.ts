@@ -3,8 +3,10 @@ dotenv.config();
 import express from "express";
 import { connectToDB } from "./db.js";
 import v1Router from "./routes/v1.routes.js";
-const app = express();
+import cors from "cors";
 
+const app = express();
+app.use(cors());
 app.use(express.json());
 
 app.use('/api/v1', v1Router);
