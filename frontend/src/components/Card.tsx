@@ -1,9 +1,10 @@
+import DeleteIcon from "../icons/DeleteIcon";
 import ShareIcon from "../icons/ShareIcon";
 
 interface CardProps {
   title: string;
   link: string;
-  type: "twitter" | "youtube";
+  type: "Twitter" | "Youtube";
 }
 
 const Card = ({ title, link, type }: CardProps) => {
@@ -24,12 +25,12 @@ const Card = ({ title, link, type }: CardProps) => {
               </a>
             </div>
             <div className="text-gray-500">
-              <ShareIcon size="md" />
+              <DeleteIcon />
             </div>
           </div>
         </div>
         <div className="w-full pt-4 h-64 overflow-scroll scrollbar-hide">
-          {type === "youtube" && (
+          {type === "Youtube" && (
             <iframe
               className="w-full aspect-video rounded-sm"
               src={`https://www.youtube.com/embed/${
@@ -43,7 +44,7 @@ const Card = ({ title, link, type }: CardProps) => {
             />
           )}
 
-          {type == "twitter" && (
+          {type == "Twitter" && (
             <blockquote className="twitter-tweet">
               <a href={link}></a>
             </blockquote>

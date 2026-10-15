@@ -7,6 +7,8 @@ interface ButtonProps {
   startIcon?: ReactElement;
   endIcon?: ReactElement;
   onClick?: () => void;
+  fullWidth?: boolean;
+  loading?: boolean;
 }
 
 const variantStyles = {
@@ -29,12 +31,15 @@ export const Button = ({
   startIcon,
   endIcon,
   onClick,
+  fullWidth,
+  loading
 }: ButtonProps) => {
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`${variantStyles[variant]} ${sizeStyles[size]} ${defaultStyles}`}
+      disabled={loading}
+      className={`${variantStyles[variant]} ${sizeStyles[size]} ${defaultStyles} ${fullWidth ? " w-full" : ""} ${loading ? " opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
     >
       <div className="flex">
         {startIcon}

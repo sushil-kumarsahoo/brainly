@@ -3,6 +3,7 @@
 @theme{
   --color-purple-600:#5046e4;
   --color-purple-200:#e0e7fe;
+  --color-purple-50: rgba(255, 255, 255, 0)
   --color-gray-200:#e6e9ed;
   --color-gray-100:#eeeeef;
   --color-gray-200:#e6e9ed;
